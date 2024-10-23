@@ -1,0 +1,1 @@
+DROP TABLE memoir.user_auth;

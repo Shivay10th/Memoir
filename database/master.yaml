@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: database/changeset/user-auth-0-1.yaml

@@ -1,0 +1,8 @@
+node_modules
+/dist
+
+/database/driver
+liquibase.properties
+
+.env
+.env.local

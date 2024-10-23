@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Shivam Yadav
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            path: database/rollout/user-auth-0-1.sql
+      rollback:
+        - sqlFile:
+            dbms: "postgresql"
+            path: database/rollback/user-auth-0-1.sql
