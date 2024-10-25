@@ -7,7 +7,6 @@ const bootstrap = async () => {
     const app = await NestFactory.create(AppModule);
 
     app.useGlobalPipes(new ValidationPipe());
-    console.log(process.env.POSTGRES_HOST);
 
     app.listen(DEFAULT_PORT);
 };

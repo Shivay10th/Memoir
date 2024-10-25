@@ -9,12 +9,6 @@ export class UserAuth {
         type: 'varchar',
         length: 120,
     })
-    username: string;
-
-    @Column({
-        type: 'varchar',
-        length: 120,
-    })
     email: string;
 
     @Column({

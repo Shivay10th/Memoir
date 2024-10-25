@@ -10,7 +10,9 @@ export class UserAuthRepository {
         @InjectRepository(UserAuth)
         private userAuthRepository: Repository<UserAuth>,
     ) {}
-
+    async getUserCred(email: string) {
+        return await this.userAuthRepository.findOne({ where: { email } });
+    }
     async createUser(credentials: UserCredentials) {
         try {
             const user = this.userAuthRepository.create({
