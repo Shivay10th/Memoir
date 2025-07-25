@@ -1,0 +1,1 @@
+DROP TABLE memoir.USER_POST;

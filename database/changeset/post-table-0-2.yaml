@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Shivam Yadav
+      changes:
+        - sqlFile:
+            dbms: "postgresql"
+            path: database/rollout/post-table-0-2.sql
+      rollback:
+        - sqlFile:
+            dbms: "postgresql"
+            path: database/rollback/post-table-0-2.sql

@@ -18,7 +18,10 @@ export class AuthService {
         const userCred = await this.userAuthRepository.getUserCred(email);
 
         if (await compare(password, userCred.password)) {
-            const access_token = await this.jwtService.signAsync({ email });
+            const access_token = await this.jwtService.signAsync({
+                userId: userCred.id,
+                email: userCred.email,
+            });
             return { access_token };
         }
         throw new UnauthorizedException();
