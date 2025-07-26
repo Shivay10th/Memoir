@@ -10,7 +10,7 @@ import { UserAuth } from './user-auth.entity';
 
 @Entity()
 export class UserPost {
-    @PrimaryGeneratedColumn('uuid', { name: 'user_post_id' })
+    @PrimaryGeneratedColumn('identity', { name: 'user_post_id' })
     id: number;
 
     @Column({
@@ -24,6 +24,24 @@ export class UserPost {
         name: 'content',
     })
     content: string;
+
+    @Column({
+        type: 'boolean',
+        default: false,
+    })
+    published: boolean;
+
+    @Column({
+        type: 'timestamptz',
+        name: 'created_at',
+    })
+    createdAt: Date;
+
+    @Column({
+        type: 'timestamptz',
+        name: 'updated_at',
+    })
+    updatedAt: Date;
 
     @ManyToOne(() => UserAuth, (user) => user.articles)
     @JoinColumn({ name: 'author_id' })

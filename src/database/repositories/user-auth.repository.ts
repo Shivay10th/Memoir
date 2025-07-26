@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserAuth } from '../user-auth.entity';
 import { Repository } from 'typeorm';
-import { UserCredentials } from '../../v1/auth/dto/user-credentials.dto';
+import { CreateUserDto } from '../../v1/auth/dto';
 
 @Injectable()
 export class UserAuthRepository {
@@ -13,7 +13,7 @@ export class UserAuthRepository {
     async getUserCred(email: string) {
         return await this.userAuthRepository.findOne({ where: { email } });
     }
-    async createUser(credentials: UserCredentials) {
+    async createUser(credentials: CreateUserDto) {
         try {
             const user = this.userAuthRepository.create({
                 ...credentials,
