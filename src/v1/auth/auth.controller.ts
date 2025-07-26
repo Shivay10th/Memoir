@@ -9,21 +9,23 @@ import {
     Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserCredentials } from './dto/user-credentials.dto';
 import { AuthGuard } from './auth.guard';
+import { ApiTags } from '@nestjs/swagger';
+import { CreateUserDto, LoginUserDto } from './dto';
 
+@ApiTags('User Auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
     @HttpCode(HttpStatus.OK)
     @Post('/login')
-    login(@Body() userCredentials: UserCredentials) {
+    login(@Body() userCredentials: LoginUserDto) {
         return this.authService.login(userCredentials);
     }
 
     @Post('/signup')
-    signUp(@Body() userCredentials: UserCredentials) {
+    signUp(@Body() userCredentials: CreateUserDto) {
         return this.authService.signUp(userCredentials);
     }
 

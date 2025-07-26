@@ -3,10 +3,10 @@ import {
     InternalServerErrorException,
     UnauthorizedException,
 } from '@nestjs/common';
-import { UserCredentials } from './dto/user-credentials.dto';
 import { UserAuthRepository } from 'src/database/repositories/user-auth.repository';
 import { genSalt, hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto, LoginUserDto } from './dto';
 @Injectable()
 export class AuthService {
     constructor(
@@ -14,7 +14,7 @@ export class AuthService {
         private jwtService: JwtService,
     ) {}
 
-    async login({ email, password }: UserCredentials) {
+    async login({ email, password }: LoginUserDto) {
         const userCred = await this.userAuthRepository.getUserCred(email);
 
         if (await compare(password, userCred.password)) {
@@ -27,13 +27,14 @@ export class AuthService {
         throw new UnauthorizedException();
     }
 
-    async signUp({ email, password }: UserCredentials) {
+    async signUp({ email, password, userName }: CreateUserDto) {
         try {
             const saltRound = Number(process.env.SALT_ROUND);
             const salt = await genSalt(saltRound);
             const hash_password = await hash(password, salt);
             await this.userAuthRepository.createUser({
                 email,
+                userName,
                 password: hash_password,
             });
             return {

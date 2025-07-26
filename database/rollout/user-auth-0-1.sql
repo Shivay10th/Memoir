@@ -1,6 +1,9 @@
 CREATE TABLE memoir.user_auth 
 (
-    user_id serial PRIMARY KEY,
-    email varchar(120) UNIQUE,
-    hash_pass text
+    user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    user_name VARCHAR(120) UNIQUE NOT NULL,
+    hash_pass TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
 );
