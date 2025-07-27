@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, LoginUserDto } from './dto';
 
 @ApiTags('User Auth')
@@ -30,6 +30,7 @@ export class AuthController {
     }
 
     @Get('/profile')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     getProfile(@Request() req: any) {
         return req.user;

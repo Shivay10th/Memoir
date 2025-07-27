@@ -6,7 +6,7 @@ import {
     ManyToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserAuth } from './user-auth.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class UserPost {
@@ -43,7 +43,7 @@ export class UserPost {
     })
     updatedAt: Date;
 
-    @ManyToOne(() => UserAuth, (user) => user.articles)
+    @ManyToOne(() => User, (user) => user.articles)
     @JoinColumn({ name: 'author_id' })
-    author: UserAuth;
+    author: User;
 }

@@ -3,13 +3,13 @@ import { UserPost } from '../user-post.entity';
 import { CreateUserPost } from 'src/v1/userPost/dto/createPost.dto';
 import { Repository } from 'typeorm';
 import { InternalServerErrorException } from '@nestjs/common';
-import { UserAuthRepository } from './user-auth.repository';
+import { UserRepository } from './user.repository';
 
 export class UserPostRepository {
     constructor(
         @InjectRepository(UserPost)
         private userPostRepository: Repository<UserPost>,
-        private userAuthRepository: UserAuthRepository,
+        private userAuthRepository: UserRepository,
     ) {}
 
     async createPost(createPostDto: CreateUserPost, email: string) {

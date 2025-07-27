@@ -14,6 +14,7 @@ const bootstrap = async () => {
         .setTitle('Memoir APIs')
         .setDescription('Documentation for Memoir APIs')
         .setVersion('1.0')
+        .addBearerAuth()
         .build();
     const documentFactory = () =>
         SwaggerModule.createDocument(app, swaggerConfig);

@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserPost } from './user-post.entity';
 
-@Entity()
-export class UserAuth {
+@Entity({ name: 'user_auth' })
+export class User {
     @PrimaryGeneratedColumn('identity', { name: 'user_id' })
     id: number;
 
