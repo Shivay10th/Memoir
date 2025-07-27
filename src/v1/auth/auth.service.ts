@@ -3,14 +3,14 @@ import {
     InternalServerErrorException,
     UnauthorizedException,
 } from '@nestjs/common';
-import { UserAuthRepository } from 'src/database/repositories/user-auth.repository';
+import { UserRepository } from '@/database/repositories/user.repository';
 import { genSalt, hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto, LoginUserDto } from './dto';
 @Injectable()
 export class AuthService {
     constructor(
-        private userAuthRepository: UserAuthRepository,
+        private userAuthRepository: UserRepository,
         private jwtService: JwtService,
     ) {}
 
