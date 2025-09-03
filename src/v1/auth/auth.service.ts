@@ -1,4 +1,5 @@
 import {
+    HttpCode,
     Injectable,
     InternalServerErrorException,
     UnauthorizedException,
@@ -7,6 +8,8 @@ import { UserRepository } from '@/database/repositories/user.repository';
 import { genSalt, hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto, LoginUserDto } from './dto';
+import { AppHttpException } from '@/core/exceptions/app.exception';
+import { ErrorCodes } from '@/core/constants/error-codes.enum';
 @Injectable()
 export class AuthService {
     constructor(
@@ -16,15 +19,18 @@ export class AuthService {
 
     async login({ email, password }: LoginUserDto) {
         const userCred = await this.userAuthRepository.getUserCred(email);
+        if (!userCred) {
+            throw new AppHttpException(ErrorCodes.AUTH_INVALID_CREDENTIALS);
+        }
 
         if (await compare(password, userCred.password)) {
-            const access_token = await this.jwtService.signAsync({
+            const accessToken = await this.jwtService.signAsync({
                 userId: userCred.id,
                 email: userCred.email,
             });
-            return { access_token };
+            return { accessToken };
         }
-        throw new UnauthorizedException();
+        throw new AppHttpException(ErrorCodes.AUTH_INVALID_CREDENTIALS);
     }
 
     async signUp({ email, password, userName }: CreateUserDto) {
