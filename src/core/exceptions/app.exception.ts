@@ -1,5 +1,9 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ErrorCodes } from '../constants/error-codes.enum';
+import {
+    ErrorCodes,
+    ErrorMessages,
+    ErrorStatusCodes,
+} from '../constants/error-codes.enum';
 
 export interface ExceptionResponse {
     message: string;
@@ -7,11 +11,17 @@ export interface ExceptionResponse {
 }
 
 export class AppHttpException extends HttpException {
-    constructor(message: string, errorCode: ErrorCodes, status: HttpStatus) {
+    constructor(
+        errorCode: ErrorCodes,
+        message?: string,
+        statusCode?: HttpStatus,
+    ) {
+        const errorMessage = message ?? ErrorMessages[errorCode];
+        const errorStatusCode = statusCode ?? ErrorStatusCodes[errorCode];
         const response: ExceptionResponse = {
-            message,
+            message: errorMessage,
             errorCode,
         };
-        super(response, status);
+        super(response, errorStatusCode);
     }
 }
