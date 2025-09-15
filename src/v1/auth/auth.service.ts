@@ -43,9 +43,6 @@ export class AuthService {
                 userName,
                 password: hash_password,
             });
-            return {
-                message: 'User added successfully!',
-            };
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
